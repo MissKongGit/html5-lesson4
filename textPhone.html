@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>方向：<span id="alpha">0</span></p>
+    <p>前后：<span id="beta">0</span></p>
+    <p>扭转：<span id="gamma">0</span></p>
+
+
+    <script>
+    function DeviceOrientationHandler(event){
+        console.log(event)
+        var alpha = event.alpha,
+            beta = event.beta,
+            gamma = event.gamma;
+        
+        if(alpha != null || beta != null || gamma != null){
+            
+            //判断屏幕方向
+            var html = "";
+            if( gamma > 0 ){
+                html = "向右倾斜" + gamma;
+            }else{
+                html = "向左倾斜" + gamma;
+            }
+            document.getElementById("gamma").innerHTML = html;
+
+            var str = '';
+            if( beta > 0 ){
+                str = "向前倾斜" + beta;
+            }else{
+                str = "向后倾斜" + beta;
+            }
+            document.getElementById("beta").innerHTML = str;
+
+            document.getElementById("alpha").innerHTML = alpha;
+   
+        }else{
+            document.body.innerHTML = "当前浏览器不支持DeviceOrientation";
+        }
+    }
+    if(window.DeviceOrientationEvent){
+        window.addEventListener('deviceorientation',DeviceOrientationHandler, false);
+    }else{
+        alert("您的浏览器不支持DeviceOrientation");
+    }
+
+    
+    
+    
+    </script>
+</body>
+</html>
