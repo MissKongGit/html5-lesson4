@@ -25,6 +25,7 @@ function success(pos) {
     navigator.geolocation.clearWatch(id);
   }else {
     console.log(pos);
+    container.innerHTML = crd.longitude;
   }
 }
 
