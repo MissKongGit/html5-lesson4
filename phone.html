@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            
+        }
+        #canvas{
+            height: 300px;
+            border: 1px solid #000;
+            width: 300px;
+        }
+        
+        #pin{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 50px;
+            width: 36px;
+            height: 6px;
+            background: #000;
+            border-radius: 0 50% 50% 0;
+            transform-origin: left;
+            transition: all 10ms linear;
+        }
+        
+
+
+    
+    
+    </style>
+</head>
+<body>
+    
+    <p>旋转：<span id="alpha">0</span></p>
+    <p>前后：<span id="beta">0</span></p>
+    <p>扭转：<span id="gamma">0</span></p>
+    <p>方向：<span id="heading">0</span></p>
+
+    
+
+    <div class="wrapper">
+        <canvas id="canvas" width=300 height=300></canvas>
+        <div id="pin"></div>
+    </div>
+    
+
+    <script>
+        var data = [
+            {color: 'yellow', start: 0, end: 22.5},
+            {color: 'red', start: 22.5, end: 67.5},
+            {color: 'orange', start: 67.5, end: 112.5},
+            {color: 'green', start: 112.5, end: 157.5},
+            {color: 'deeppink', start: 157.5, end: 202.5},
+            {color: 'blue', start: 202.5, end: 247.5},
+            {color: 'rgba(0,0,0,0.5)', start: 247.5, end: 292.5},
+            {color: 'pink', start: 292.5, end: 337.5},
+            {color: 'yellow', start: 340.5, end: 360},
+        ]
+
+        function draw() {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            data.forEach(function (ele, index) {
+                shan(ctx, ele.color, ele.start, ele.end);
+            });
+        }
+        draw();
+        function shan(ctx, c, s, e) {
+            ctx.beginPath();
+            ctx.lineWidth = 20;
+            ctx.strokeStyle = c;
+            ctx.arc(150, 150, 50, Math.PI/180*s, Math.PI/180*e, 0);
+            ctx.stroke();
+        }
+
+        function move(ang) {
+            var pin = document.getElementById('pin');
+            pin.style.transform = 'rotate('+ang+'deg)';
+        }
+
+        
+
+        function DeviceOrientationHandler(event){
+            var alpha = event.alpha,
+                beta = event.beta,
+                gamma = event.gamma,
+                webkitCompassHeading = event.webkitCompassHeading;
+            
+            if(alpha != null || beta != null || gamma != null){
+                //判断屏幕方向
+                var html = "";
+                if( gamma > 0 ){
+                    html = "向右倾斜" + gamma;
+                }else{
+                    html = "向左倾斜" + gamma;
+                }
+                document.getElementById("gamma").innerHTML = html;
+
+                var str = '';
+                if( beta > 0 ){
+                    str = "向前倾斜" + beta;
+                }else{
+                    str = "向后倾斜" + beta;
+                }
+
+                var head = '';
+                var headNum = Math.round(Math.round(webkitCompassHeading/45) + 7)%8;
+                switch (headNum) {
+                    case 0:
+                        head = '东北';
+                        break;
+                    case 1:
+                        head = '东';
+                        break;
+                    case 2:
+                        head = '东南';
+                        break;
+                    case 3:
+                        head = '南';
+                        break;
+                    case 4:
+                        head = '西南';
+                        break;
+                    case 5:
+                        head = '西';
+                        break;
+                    case 6:
+                        head = '西北';
+                        break;
+                    case 7:
+                        head = '北';
+                }
+                move(webkitCompassHeading+180);
+                document.getElementById("beta").innerHTML = str;
+
+                document.getElementById("alpha").innerHTML = alpha;
+
+                document.getElementById('heading').innerHTML = head + '   ' + webkitCompassHeading;
+    
+            }else{
+                document.body.innerHTML = "当前浏览器不支持DeviceOrientation";
+            }
+        }
+    if(window.DeviceOrientationEvent){
+        window.addEventListener('deviceorientation',DeviceOrientationHandler, false);
+    }else{
+        alert("您的浏览器不支持DeviceOrientation");
+    }
+
+    
+    
+    
+    </script>
+</body>
+</html>
