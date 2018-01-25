@@ -15,30 +15,36 @@
 
     <script>
 
-        // function successFun(e) {
-        //     console.log('成功了')
-        //     console.log(e);
-        // }
-        // function errorFun(e) {
-        //     console.log('shibail')
-        //     console.log(e);
-        // }
-        // var obj = {
-        //     enableHighAccuracy : true,
-        //     timeout : 3000,
-        // }
+var id, target, options;
 
-        // window.navigator.geolocation.getCurrentPosition(successFun, errorFun, obj);
+function success(pos) {
+  var crd = pos.coords;
 
+  if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+    console.log('Congratulations, you reached the target');
+    navigator.geolocation.clearWatch(id);
+  }else {
+    alert(888);
+  }
+}
 
-        // var id = navigator.geolocation.watchPosition(function (){console.log(111)}, function() {console.log(222)}) 
+function error(err) {
+    alert(777)
+//   console.warn('ERROR(' + err.code + '): ' + err.message);
+}
 
-        var oDiv = document.getElementById('container');
-        window.addEventListener('devicemotion', function (e) {
-            console.log(e);
-            var h = oDiv.innerHTML + e.accelerationIncludingGravity.x + '-' + e.accelerationIncludingGravity.y + '-' + e.accelerationIncludingGravity.z + '</br>';
-            oDiv.innerHTML = h;
-        })
+target = {
+  latitude : 0,
+  longitude: 0
+};
+
+options = {
+  enableHighAccuracy: false,
+  timeout: 5000,
+  maximumAge: 0
+};
+
+id = navigator.geolocation.watchPosition(success, error, options);
 
     </script>
 
