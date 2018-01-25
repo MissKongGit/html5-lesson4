@@ -28,7 +28,7 @@ function success(pos) {
   }else {
     console.log(pos);
     var dom = document.createElement('div');
-    dom.innerHTML = crd.longitude;
+    dom.innerHTML = crd.longitude + '-' + crd.latitude;
     container.appendChild(dom);
   }
 }
