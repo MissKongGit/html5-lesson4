@@ -24,13 +24,12 @@ function success(pos) {
     console.log('Congratulations, you reached the target');
     navigator.geolocation.clearWatch(id);
   }else {
-    alert(888);
+    console.log(pos);
   }
 }
 
 function error(err) {
-    alert(777)
-//   console.warn('ERROR(' + err.code + '): ' + err.message);
+  console.warn('ERROR(' + err.code + '): ' + err.message);
 }
 
 target = {
