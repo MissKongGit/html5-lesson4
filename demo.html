@@ -30,6 +30,7 @@ function success(pos) {
     var dom = document.createElement('div');
     dom.innerHTML = crd.longitude + '-' + crd.latitude;
     container.appendChild(dom);
+    navigator.geolocation.clearWatch(id);
   }
 }
 
