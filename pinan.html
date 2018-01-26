@@ -139,7 +139,7 @@
         }
 
         function DeviceOrientationHandler(event){
-            var webkitCompassHeading = event.webkitCompassHeading;
+            var webkitCompassHeading = event.alpha;
             if(webkitCompassHeading != null){
                 //判断屏幕方向
                 var head = '';

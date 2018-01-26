@@ -1,0 +1,12 @@
+1、指北针
+https://papaverice.github.io/html5-lesson4/pin.html
+
+2、摇一摇
+https://papaverice.github.io/html5-lesson4/yaoyiyao.html
+
+3、判断xyz角度
+https://papaverice.github.io/html5-lesson4/textPhone.html
+
+
+4、watchPosition
+https://papaverice.github.io/html5-lesson4/demo.html

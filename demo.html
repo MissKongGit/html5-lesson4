@@ -17,39 +17,39 @@
 
     <script>
 
-var id, target, options, str;
+    var id, target, options, str;
 
-function success(pos) {
-  var crd = pos.coords;
+    function success(pos) {
+      var crd = pos.coords;
 
-  if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-    console.log('Congratulations, you reached the target');
-    navigator.geolocation.clearWatch(id);
-  }else {
-    console.log(pos);
-    var dom = document.createElement('div');
-    dom.innerHTML = crd.longitude + '-' + crd.latitude;
-    container.appendChild(dom);
-    // navigator.geolocation.clearWatch(id);
-  }
-}
+      if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+        console.log('Congratulations, you reached the target');
+        navigator.geolocation.clearWatch(id);
+      }else {
+        console.log(pos);
+        var dom = document.createElement('div');
+        dom.innerHTML = crd.longitude + '-' + crd.latitude;
+        container.appendChild(dom);
+        // navigator.geolocation.clearWatch(id);
+      }
+    }
 
-function error(err) {
-  console.warn('ERROR(' + err.code + '): ' + err.message);
-}
+    function error(err) {
+      console.warn('ERROR(' + err.code + '): ' + err.message);
+    }
 
-target = {
-  latitude : 0,
-  longitude: 0
-};
+  target = {
+    latitude : 0,
+    longitude: 0
+  };
 
-options = {
-  enableHighAccuracy: false,
-  timeout: 5000,
-  maximumAge: 5000
-};
+  options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 5000
+  };
 
-id = navigator.geolocation.watchPosition(success, error, options);
+  id = navigator.geolocation.watchPosition(success, error, options);
 
     </script>
 
